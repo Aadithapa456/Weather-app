@@ -1,0 +1,189 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: "poppins";
+}
+:root {
+   --main-color: #8db87f;
+   --text-color: #333;
+   --body-color: #e3e4e8;
+}
+html {
+   font-size: 62.5%;
+}
+body {
+   height: 80vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: var(--body-color);
+   transition: 0.4s;
+}
+/* Redundant code section */
+.flex {
+   display: flex;
+}
+.gap-10 {
+   gap: 10px;
+}
+/* Redundant code section ends  */
+
+/* Main weather card section starts */
+.weather-card {
+   background-color: var(--main-color);
+   border-radius: 18px;
+   padding: 3.4rem 3.8rem;
+   align-items: center;
+   flex-direction: column;
+}
+.weather-card .weather-search {
+   padding: 0.8rem 1.4rem;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   color: var(--text-color);
+   width: 80%;
+   margin: auto;
+}
+.weather-search input {
+   outline: none;
+   transition: 0.3s;
+   background-color: transparent;
+   border: 0;
+   color: var(--text-color);
+   font-size: 1.4rem;
+}
+.weather-search input::placeholder {
+   color: var(--text-color);
+   font-size: 1.44rem;
+   letter-spacing: 1.2px;
+}
+.weather-search input:focus {
+   border-bottom: 2px solid #68976c;
+}
+/* For removing bg-color during autofill */
+.weather-search input:-webkit-autofill {
+   background-color: transparent !important;
+   -webkit-text-fill-color: rgb(26, 24, 24) !important;
+   transition: background-color 5000s ease-in-out 0s; /* Fix for Chrome autofill background */
+}
+
+.weather-search input:-webkit-autofill:focus {
+   border-bottom: 2px solid #68976c !important; /* Keep focus style */
+}
+
+.weather-search input:-moz-autofill {
+   background-color: transparent !important; /* For Firefox */
+   color: var(--text-color) !important;
+}
+
+.weather-search input:-ms-autofill {
+   background-color: transparent !important; /* For Internet Explorer */
+   color: var(--text-color) !important;
+}
+
+.weather-search input:-o-autofill {
+   background-color: transparent !important; /* For Opera */
+   color: var(--text-color) !important;
+}
+
+.weather-card button {
+   border: none;
+   background-color: transparent;
+   border-radius: 14px;
+   padding: 0.6rem 1.4rem;
+   position: absolute;
+   color: var(--text-color);
+   right: 10px;
+   font-size: 1.6rem;
+}
+.weather-card button i {
+   transition: 0.4s;
+}
+.weather-card button i:hover {
+   color: #0056b3;
+   transform: scale(1.3);
+}
+.weather-card input {
+   width: 300px;
+   padding: 0.9rem 1.4rem;
+}
+.weather-info .info-img img {
+   width: 13rem;
+}
+/* Main weather card section starts */
+
+/* Main Weather Info Section  */
+
+.weather-info {
+   color: var(--text-color);
+   flex-direction: column;
+   align-items: center;
+   padding: 1rem 0;
+}
+.weather-info .info-temprature {
+   font-size: 3.5rem;
+   font-weight: 550;
+}
+.weather-info .info-city {
+   font-size: 1.7rem;
+   font-weight: 250;
+   text-transform: uppercase;
+   letter-spacing: 1.6px;
+}
+/* Main Weather Info Section Ends */
+
+/* Extra Weather Info Section  */
+.weather-extra-info {
+   color: var(--text-color);
+   gap: 10px;
+   font-size: 1.3rem;
+   opacity: 0.9;
+   margin-top: 45px;
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-template-rows: auto auto;
+   justify-items: center;
+   margin-bottom: 10px;
+   font-weight: 600;
+}
+.weather-extra-info img {
+   width: 65px;
+}
+.weather-extra-info .air-pressure {
+   justify-content: center;
+   align-items: center;
+}
+.weather-extra-info i {
+   color: #0097b2;
+   font-size: 2.5rem;
+   gap: 40px;
+}
+.wind-speed {
+   grid-column: 2; /* Wind Speed in second column */
+   grid-row: 1;
+   align-items: center;
+}
+.air-pressure {
+   grid-column: 1; /* Air Pressure in first column */
+   grid-row: 1;
+}
+.humidity {
+   align-items: center;
+   grid-column: 1 / span 2; /* Humidity spans both columns */
+   grid-row: 2;
+   justify-self: center;
+}
+/* Extra Weather Info Section  Ends*/
+@media only screen and (max-width: 600px) {
+   html {
+      font-size: 49.5%;
+   }
+   body {
+      height: 100vh;
+   }
+   .weather-card {
+      padding: 1.6rem 1.8rem;
+   }
+}

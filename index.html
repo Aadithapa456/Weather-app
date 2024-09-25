@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://kit.fontawesome.com/bed699dc9b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="weather-card flex">
+        <div class="weather-search flex">
+            <input type="text" placeholder="Search your City" id="city-input">
+            <button><i class="fa-solid fa-magnifying-glass search"></i></button>
+        </div>
+        <div class="weather-info flex">
+            <div class="info-img"><img src="assets/Sunny/sunny.png" alt=""></div>
+            <div class="info-temprature"><span>36</span><span>&#176;C</span>
+            </div>
+            <div class="info-city">Itahari</div>
+        </div>
+        <div class="weather-extra-info gap-10">
+            <div class="air-pressure flex gap-10">
+                <img src="assets/air-pressure.png" alt="">
+                <div class="pressure-info-section">
+                    <div class="pressure-info">101 kPa</div>
+                    <div class="pressure-label">Air Pressure</div>
+                </div>
+            </div>
+            <div class="wind-speed flex gap-10">
+                <i class="fa-solid fa-wind"></i>
+                <div class="wind-info-section">
+                    <div class="wind-info">16km/hr</div>
+                    <div class="wind-label">Wind Speed</div>
+                </div>
+            </div>
+            <div class="humidity flex gap-10">
+                <i class="fa-solid fa-droplet"></i>
+                <div class="humidity-info-section">
+                    <div class="humidity-info">16km/hr</div>
+                    <div class="humidity-label">Humidity</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
