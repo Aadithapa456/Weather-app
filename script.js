@@ -22,9 +22,7 @@ async function checkWeather(city, lat, long) {
       }
       const data = await response.json();
       console.log(data);
-      if(data.name){
-         cityInfo.textContent = data.name;
-      }
+         cityInfo.textContent = "Hello world";
       showWeather(data); // calls the function that displays weather info to user
    } catch (error) {
       console.log(error.message);
