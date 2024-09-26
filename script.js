@@ -11,9 +11,15 @@ let humidityInfo = document.querySelector(".humidity-info");
 let city;
 // For theme change
 let currentTheme = document.querySelector(":root");
-async function checkWeather(city) {
+async function checkWeather(city, lat, long) {
+   console.log(lat,long);
    try {
-      const response = await fetch(apiUrl + `&appid=${apiKey}` + `&q=${city}`); // Fetches data from API and appends the city given by user in the URL
+      let response;
+      if (lat && long) {
+         response = await fetch(apiUrl + `&appid=${apiKey}?lat=${lat}&lon=${long}`); // Fetches data from API and appends the city given by geo-Location API
+      } else {
+         response = await fetch(apiUrl + `&appid=${apiKey}` + `&q=${city}`); // Fetches data from API and appends the city given by user
+      }
       const data = await response.json();
       showWeather(data); // calls the function that displays weather info to user
    } catch (error) {
@@ -34,14 +40,16 @@ cityInput.addEventListener("keypress", (event) => {
       checkWeather(city);
    }
 });
+// Both the event Listeners are used to make for the input field
+
 function showWeather(data) {
    let currentWeatherState = data.weather[0].main; // Checks the current weather state e.g: Rainy, Cloudy
    tempInfo.textContent = Math.round(data.main.temp); // Rounds off the temperature to nearest integer
    cityInfo.textContent = cityInput.value; // Displays the city given by user below temperature
    airPressureInfo.textContent = `${(data.main.pressure * 0.1).toFixed(1)} kPa`; //Converts to kPa
-   windInfo.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/hr`;
+   windInfo.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/hr`; // Converts m/s to km/hr
    humidityInfo.textContent = `${data.main.humidity} %`;
-   const { sunrise, sunset } = data.sys;
+   const { sunrise, sunset } = data.sys; // Extracts the sunrise, sunset data 
    const currentTime = Math.floor(Date.now() / 1000); // Current time in Unix timestamp
    if (currentWeatherState == "Mist") {
       weatherImg.src = "assets/Misty/mist.png";
@@ -70,16 +78,17 @@ function showWeather(data) {
       }
    }
 }
-// function geoLocation(){
-//    if(navigator.geolocation){
-//       navigator.geolocation.getCurrentPosition(showPosition);
-//    }else{
-//       console.log("Geolocation is not supported in your browser");
-//    }
-// }
-// function showPosition(position){
-//    const lat = position.coords.latitude;
-//    const long = position.coords.longitude;
-//    console.log([lat,long]);
-// }
-// geoLocation();
+function geoLocation() {
+   if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+   } else {
+      console.log("Geolocation is not supported in your browser");
+   }
+}
+function showPosition(position) {
+   const lat = position.coords.latitude.toFixed(2);
+   const long = position.coords.longitude.toFixed(2);
+   checkWeather(null,lat,long);
+}
+
+geoLocation();
