@@ -8,7 +8,7 @@ let cityInfo = document.querySelector(".info-city");
 let airPressureInfo = document.querySelector(".pressure-info");
 let windInfo = document.querySelector(".wind-info");
 let humidityInfo = document.querySelector(".humidity-info");
-
+let city;
 // For theme change
 let currentTheme = document.querySelector(":root");
 async function checkWeather(city) {
@@ -21,11 +21,17 @@ async function checkWeather(city) {
    }
 }
 searchButton.addEventListener("click", () => {
-   let city = cityInput.value;
+   city = cityInput.value;
    if (city) {
       checkWeather(city); // ChecksWeather if the city given by user is valid
    } else {
       alert("Enter a valid city");
+   }
+});
+cityInput.addEventListener("keypress", (event) => {
+   city = cityInput.value;
+   if (event.key == "Enter") {
+      checkWeather(city);
    }
 });
 function showWeather(data) {
