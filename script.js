@@ -12,7 +12,6 @@ let city;
 // For theme change
 let currentTheme = document.querySelector(":root");
 async function checkWeather(city, lat, long) {
-   console.log(lat,long);
    try {
       let response;
       if (lat && long) {
@@ -21,8 +20,6 @@ async function checkWeather(city, lat, long) {
          response = await fetch(apiUrl + `&appid=${apiKey}` + `&q=${city}`); // Fetches data from API and appends the city given by user
       }
       const data = await response.json();
-      console.log(data);
-      // cityInfo.textContent = "Hello world";
       showWeather(data); // calls the function that displays weather info to user
    } catch (error) {
       console.log(error.message);
