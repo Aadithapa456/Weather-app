@@ -16,7 +16,7 @@ async function checkWeather(city, lat, long) {
    try {
       let response;
       if (lat && long) {
-         response = await fetch(apiUrl + `&appid=${apiKey}?lat=${lat}&lon=${long}`); // Fetches data from API and appends the city given by geo-Location API
+         response = await fetch(apiUrl +`?lat=${lat}&lon=${long}` + `&appid=${apiKey}`); // Fetches data from API and appends the city given by geo-Location API
       } else {
          response = await fetch(apiUrl + `&appid=${apiKey}` + `&q=${city}`); // Fetches data from API and appends the city given by user
       }
