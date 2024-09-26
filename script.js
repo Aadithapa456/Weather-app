@@ -22,9 +22,7 @@ async function checkWeather(city, lat, long) {
       }
       const data = await response.json();
       console.log(data);
-      if(data.name){
-         cityInfo.textContent = data.name;
-      }
+      // cityInfo.textContent = "Hello world";
       showWeather(data); // calls the function that displays weather info to user
    } catch (error) {
       console.log(error.message);
@@ -49,7 +47,7 @@ cityInput.addEventListener("keypress", (event) => {
 function showWeather(data) {
    let currentWeatherState = data.weather[0].main; // Checks the current weather state e.g: Rainy, Cloudy
    tempInfo.textContent = Math.round(data.main.temp); // Rounds off the temperature to nearest integer
-   cityInfo.textContent = cityInput.value; // Displays the city given by user below temperature
+   cityInfo.textContent = data.name; // Displays the city given by user below temperature
    airPressureInfo.textContent = `${(data.main.pressure * 0.1).toFixed(1)} kPa`; //Converts to kPa
    windInfo.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/hr`; // Converts m/s to km/hr
    humidityInfo.textContent = `${data.main.humidity} %`;
