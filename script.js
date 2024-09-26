@@ -43,9 +43,6 @@ function showWeather(data) {
    humidityInfo.textContent = `${data.main.humidity} %`;
    const { sunrise, sunset } = data.sys;
    const currentTime = Math.floor(Date.now() / 1000); // Current time in Unix timestamp
-   if (currentWeatherState == "Rain") {
-      weatherImg.src = "assets/Rainy/rainy.png";
-   }
    if (currentWeatherState == "Mist") {
       weatherImg.src = "assets/Misty/mist.png";
    }
@@ -57,6 +54,9 @@ function showWeather(data) {
       if (currentWeatherState == "Clouds") {
          weatherImg.src = "assets/Cloudy/cloudy.png";
       }
+      if (currentWeatherState == "Rain") {
+         weatherImg.src = "assets/Rainy/rainy.png";
+      }
    } else {
       // weatherImg.src = "assets/moon.png";
       currentTheme.style.setProperty("--main-color", "#1a1a2e");
@@ -65,5 +65,21 @@ function showWeather(data) {
       if (currentWeatherState == "Clouds") {
          weatherImg.src = "assets/Cloudy/night-cloud.png";
       }
+      if (currentWeatherState == "Rain") {
+         weatherImg.src = "assets/Rainy/night-rain.png";
+      }
    }
 }
+// function geoLocation(){
+//    if(navigator.geolocation){
+//       navigator.geolocation.getCurrentPosition(showPosition);
+//    }else{
+//       console.log("Geolocation is not supported in your browser");
+//    }
+// }
+// function showPosition(position){
+//    const lat = position.coords.latitude;
+//    const long = position.coords.longitude;
+//    console.log([lat,long]);
+// }
+// geoLocation();
