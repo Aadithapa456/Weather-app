@@ -21,6 +21,7 @@ async function checkWeather(city, lat, long) {
          response = await fetch(apiUrl + `&appid=${apiKey}` + `&q=${city}`); // Fetches data from API and appends the city given by user
       }
       const data = await response.json();
+      cityInfo.textContent = data.name;
       showWeather(data); // calls the function that displays weather info to user
    } catch (error) {
       console.log(error.message);
