@@ -1,4 +1,4 @@
-let apiKey = "10e65eb27ec4a5b7e06313b91493c5ff";
+import { API_KEY } from "/api_key.js";
 let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric";
 let cityInput = document.querySelector("#city-input");
 let searchButton = document.querySelector(".search");
@@ -15,9 +15,11 @@ async function checkWeather(city, lat, long) {
    try {
       let response;
       if (lat && long) {
-         response = await fetch(apiUrl +`&lat=${lat}&lon=${long}` + `&appid=${apiKey}`); // Fetches data from API and appends the city given by geo-Location API
+         response = await fetch(
+            apiUrl + `&lat=${lat}&lon=${long}` + `&appid=${API_KEY}`
+         ); // Fetches data from API and appends the city given by geo-Location API
       } else {
-         response = await fetch(apiUrl + `&appid=${apiKey}` + `&q=${city}`); // Fetches data from API and appends the city given by user
+         response = await fetch(apiUrl + `&appid=${API_KEY}` + `&q=${city}`); // Fetches data from API and appends the city given by user
       }
       const data = await response.json();
       showWeather(data); // calls the function that displays weather info to user
@@ -48,7 +50,7 @@ function showWeather(data) {
    airPressureInfo.textContent = `${(data.main.pressure * 0.1).toFixed(1)} kPa`; //Converts to kPa
    windInfo.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/hr`; // Converts m/s to km/hr
    humidityInfo.textContent = `${data.main.humidity} %`;
-   const { sunrise, sunset } = data.sys; // Extracts the sunrise, sunset data 
+   const { sunrise, sunset } = data.sys; // Extracts the sunrise, sunset data
    const currentTime = Math.floor(Date.now() / 1000); // Current time in Unix timestamp
    if (currentWeatherState == "Mist") {
       weatherImg.src = "assets/Misty/mist.png";
@@ -88,7 +90,7 @@ function geoLocation() {
 function showPosition(position) {
    const lat = position.coords.latitude.toFixed(2);
    const long = position.coords.longitude.toFixed(2);
-   checkWeather(null,lat,long);
+   checkWeather(null, lat, long);
 }
 
 geoLocation();
