@@ -19,7 +19,7 @@ let city;
 async function checkWeather(city) {
   try {
     let response = await fetch(
-      `https://weather-app-two-omega-78.vercel.app/connection.php?q=${city}`
+      `https://weather-app-two-omega-78.vercel.app/api/connection.php?q=${city}`
     );
     if (!response.ok) {
       const errorData = await response.json();
