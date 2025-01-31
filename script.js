@@ -18,7 +18,7 @@ let windSpeedArrow = document.querySelector(".wind-direction-arrow");
 let city;
 async function checkWeather(city) {
   try {
-    let response = await fetch(`<path-to-connection.php>?q=${city}`);
+    let response = await fetch(`connection.php?q=${city}`);
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.code);
