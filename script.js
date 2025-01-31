@@ -1,96 +1,108 @@
-import { API_KEY } from "/api_key.js";
+const API_KEY = "10e65eb27ec4a5b7e06313b91493c5ff";
+// Humidity, Pressure, Icon, Wind, Desc
 let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric";
+let weatherCardContainer = document.querySelector(".weather-card");
 let cityInput = document.querySelector("#city-input");
 let searchButton = document.querySelector(".search");
 let weatherImg = document.querySelector(".info-img").firstElementChild;
+let currentStateInfo = document.querySelector(".info-main-state");
+let currentStateDescription = document.querySelector(".info-state-description");
 let tempInfo = document.querySelector(".info-temprature").firstElementChild;
 let cityInfo = document.querySelector(".info-city");
 let airPressureInfo = document.querySelector(".pressure-info");
 let windInfo = document.querySelector(".wind-info");
+let windDirection = document.querySelector(".wind-direction");
 let humidityInfo = document.querySelector(".humidity-info");
+let infoDate = document.querySelector(".info-date");
+let windSpeedArrow = document.querySelector(".wind-direction-arrow");
 let city;
-// For theme change
-let currentTheme = document.querySelector(":root");
-async function checkWeather(city, lat, long) {
-   try {
-      let response;
-      if (lat && long) {
-         response = await fetch(
-            apiUrl + `&lat=${lat}&lon=${long}` + `&appid=${API_KEY}`
-         ); // Fetches data from API and appends the city given by geo-Location API
-      } else {
-         response = await fetch(apiUrl + `&appid=${API_KEY}` + `&q=${city}`); // Fetches data from API and appends the city given by user
-      }
-      const data = await response.json();
-      showWeather(data); // calls the function that displays weather info to user
-   } catch (error) {
-      console.log(error.message);
-   }
+async function checkWeather(city) {
+  try {
+    let response = await fetch(`<path-to-connection.php>?q=${city}`);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.code);
+    }
+    const data = await response.json();
+    showWeather(data); // calls the function that displays weather info to user
+  } catch (error) {
+    if (error.message.includes("404")) {
+      showToast("City not found. Please enter a valid city name.");
+    }
+  }
 }
-searchButton.addEventListener("click", () => {
-   city = cityInput.value;
-   if (city) {
-      checkWeather(city); // ChecksWeather if the city given by user is valid
-   } else {
-      alert("Enter a valid city");
-   }
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  city = cityInput.value;
+  if (city) {
+    checkWeather(city); // ChecksWeather if the city given by user is valid
+  } else {
+    alert("Enter a valid city");
+  }
 });
 cityInput.addEventListener("keypress", (event) => {
-   city = cityInput.value;
-   if (event.key == "Enter") {
-      checkWeather(city);
-   }
+  city = cityInput.value;
+  if (event.key == "Enter") {
+    checkWeather(city);
+  }
 });
-// Both the event Listeners are used to make for the input field
+// Both the event Listeners are used to call checkweather function
 
 function showWeather(data) {
-   let currentWeatherState = data.weather[0].main; // Checks the current weather state e.g: Rainy, Cloudy
-   tempInfo.textContent = Math.round(data.main.temp); // Rounds off the temperature to nearest integer
-   cityInfo.textContent = data.name; // Displays the city given by user below temperature
-   airPressureInfo.textContent = `${(data.main.pressure * 0.1).toFixed(1)} kPa`; //Converts to kPa
-   windInfo.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/hr`; // Converts m/s to km/hr
-   humidityInfo.textContent = `${data.main.humidity} %`;
-   const { sunrise, sunset } = data.sys; // Extracts the sunrise, sunset data
-   const currentTime = Math.floor(Date.now() / 1000); // Current time in Unix timestamp
-   if (currentWeatherState == "Mist") {
-      weatherImg.src = "assets/Misty/mist.png";
-   }
-   // For DayNight Mode
-   if (currentTime >= sunrise && currentTime < sunset) {
-      currentTheme.style.setProperty("--main-color", "#8db87f");
-      currentTheme.style.setProperty("--text-color", "#333");
-      currentTheme.style.setProperty("--body-color", "#e3e4e8");
-      if (currentWeatherState == "Clouds") {
-         weatherImg.src = "assets/Cloudy/cloudy.png";
-      }
-      if (currentWeatherState == "Rain") {
-         weatherImg.src = "assets/Rainy/rainy.png";
-      }
-   } else {
-      // weatherImg.src = "assets/moon.png";
-      currentTheme.style.setProperty("--main-color", "#1a1a2e");
-      currentTheme.style.setProperty("--text-color", "#fff");
-      currentTheme.style.setProperty("--body-color", "#2b2d42");
-      if (currentWeatherState == "Clouds") {
-         weatherImg.src = "assets/Cloudy/night-cloud.png";
-      }
-      if (currentWeatherState == "Rain") {
-         weatherImg.src = "assets/Rainy/night-rain.png";
-      }
-   }
+  currentStateInfo.innerHTML = data[0].weatherstatus.toUpperCase();
+  // currentStateDescription.innerHTML = data.weather[0].description.toUpperCase();
+  cityInfo.innerHTML = data[0].City; // Displays city given by user
+  currentStateDescription.innerHTML = data[0].weatherstate.toUpperCase();
+  tempInfo.innerHTML = Math.round(data[0].temperature); // Rounds off to nearest integer
+  airPressureInfo.innerHTML = `${data[0].pressure} hPa`;
+  windInfo.innerHTML = `${data[0].windspeed} m/s`;
+  windDirection.innerHTML = `at ${data[0].direction}°`;
+  humidityInfo.innerHTML = `${data[0].humidity} %`;
+  weatherImg.src = `https://openweathermap.org/img/wn/${data[0].icon}.png`;
+  windSpeedArrow.style.transform = `rotate(${data[0].direction}deg)`;
+  // Getting current time from API
+  infoDate.innerHTML = new Date(data[0].currentTime * 1000).toLocaleDateString();
+  toggleDarkNightMode(data);
 }
-// Geo-location API
-function geoLocation() {
-   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-   } else {
-      console.log("Geolocation is not supported in your browser");
-   }
-}
-function showPosition(position) {
-   const lat = position.coords.latitude.toFixed(2);
-   const long = position.coords.longitude.toFixed(2);
-   checkWeather(null, lat, long);
+function toggleDarkNightMode(data) {
+  // Extracts the sunrise, sunset data
+  const sunrise = data[0].sunrise;
+  const sunset = data[0].sunset;
+  const currentTime = Math.floor(Date.now() / 1000); // Current time in Unix timestamp
+  // For DayNight Mode
+  if (currentTime >= sunrise && currentTime < sunset) {
+    document.body.classList.remove("dark-mode");
+    weatherCardContainer.classList.remove("dark-mode");
+  } else {
+    document.body.classList.add("dark-mode");
+    weatherCardContainer.classList.add("dark-mode");
+  }
 }
 
-geoLocation();
+// Show Toast Function
+function showToast(subText = "Unxpected Error Occured") {
+  const toast = document.querySelector(".toast");
+  const subTextElement = toast.querySelector(".error-description");
+  subTextElement.textContent = subText;
+
+  toast.style.transform = "translateY(0)";
+  toast.style.opacity = "1";
+
+  // Automatically hide the toast after 3 seconds
+  setTimeout(() => {
+    hideToast();
+  }, 3000);
+}
+
+// Hide Toast Function
+function hideToast() {
+  const toast = document.querySelector(".toast");
+  toast.style.transform = "translateY(-100px)";
+  toast.style.opacity = "0";
+}
+
+// Close the toast manually by clicking the close icon
+document.querySelector(".cross-icon").addEventListener("click", hideToast);
+
+// Default city on first load
+checkWeather("Wolverhampton");
