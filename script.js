@@ -1,6 +1,4 @@
-const API_KEY = "10e65eb27ec4a5b7e06313b91493c5ff";
 // Humidity, Pressure, Icon, Wind, Desc
-let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric";
 let weatherCardContainer = document.querySelector(".weather-card");
 let cityInput = document.querySelector("#city-input");
 let searchButton = document.querySelector(".search");
@@ -18,9 +16,7 @@ let windSpeedArrow = document.querySelector(".wind-direction-arrow");
 let city;
 async function checkWeather(city) {
   try {
-    let response = await fetch(
-      `https://weather-app-two-omega-78.vercel.app/api/connection.php?q=${city}`
-    );
+    let response = await fetch(`api/connection.php?q=${city}`);
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.code);
