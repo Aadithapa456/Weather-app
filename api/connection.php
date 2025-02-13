@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-$servername = "";
+$servername = "localhost";
 $username = "root";
 $password = "";
 $conn = mysqli_connect($servername, $username, $password);
@@ -27,11 +27,14 @@ $createTable = "CREATE TABLE IF NOT EXISTS weather(
     weatherstatus varchar(20),
     weatherstate varchar(20),
     temperature int,
+    feelslike int,
     pressure int,
     humidity int,
     windspeed int,
     direction int,
     icon varchar(20),
+    visibility int,
+    timezone int,
     currentTime int,
     sunrise int,
     sunset int
@@ -82,10 +85,13 @@ function fetchData($conn, $cityName, $isUpdating)
     $weatherState = $data["weather"][0]["description"];
     $weatherIcon = $data["weather"][0]["icon"];
     $temperature = $data["main"]["temp"];
+    $feelsLike = $data["main"]["feels_like"];
     $pressure = $data["main"]["pressure"];
     $humidity = $data["main"]["humidity"];
     $windspeed = $data["wind"]["speed"];
     $winddirection = $data["wind"]["deg"];
+    $visibility = $data["visibility"];
+    $timezone = $data["timezone"];
     $currentTime = $data["dt"];
     $sunrise = $data["sys"]["sunrise"];
     $sunset = $data["sys"]["sunset"];
@@ -94,18 +100,21 @@ function fetchData($conn, $cityName, $isUpdating)
             weatherstatus = '$weatherStatus', 
             weatherstate='$weatherState', 
             temperature='$temperature', 
+            feelslike = '$feelsLike',
             pressure='$pressure', 
             humidity='$humidity', 
             windspeed='$windspeed', 
             direction='$winddirection', 
             icon='$weatherIcon', 
+            visibility= '$visibility',
+            timezone = '$timezone',
             currentTime='$currentTime', 
             sunrise='$sunrise', 
             sunset='$sunset' 
             WHERE City LIKE '$cityName'";
     } else {
-        $insertData = "INSERT INTO weather(City,weatherstatus, weatherstate, temperature, pressure, humidity, windspeed, direction, icon, currentTime, sunrise, sunset)
-            VALUES ('$city','$weatherStatus', '$weatherState','$temperature', '$pressure', '$humidity', '$windspeed', '$winddirection', '$weatherIcon', '$currentTime', '$sunrise', '$sunset')";
+        $insertData = "INSERT INTO weather(City,weatherstatus, weatherstate, temperature,feelslike, pressure, humidity, windspeed, direction, icon, visibility,timezone, currentTime, sunrise, sunset)
+            VALUES ('$city','$weatherStatus', '$weatherState','$temperature','$feelsLike', '$pressure', '$humidity', '$windspeed', '$winddirection', '$weatherIcon', '$visibility','$timezone','$currentTime', '$sunrise', '$sunset')";
     }
     if (!mysqli_query($conn, $insertData)) {
         die(json_encode(["error" => "Error inserting data: " . mysqli_error($conn)]));

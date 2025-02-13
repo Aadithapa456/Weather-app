@@ -10,68 +10,128 @@
     />
     <script src="https://kit.fontawesome.com/bed699dc9b.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="#" />
   </head>
 
   <body>
-    <div class="weather-card flex">
-      <div class="info-date">12/29/2024</div>
-      <div class="weather-search flex">
-        <input type="text" placeholder="Search your City" id="city-input" />
-        <button><i class="fa-solid fa-magnifying-glass search"></i></button>
+    <header class="header-container">
+      <div class="title-container">
+        <h1 class="main-title">Weathora</h1>
+        <p class="subtitle">
+          Crafted with love by
+          <a href="https://github.com/Aadithapa456" target="_blank" class="github-link">Aaditya</a>
+        </p>
+        <p class="description">
+          A simple weather app to keep you updated with the latest weather conditions.
+        </p>
       </div>
-      <div class="weather-info flex">
-        <div class="info-img">
+    </header>
+    <main>
+      <section class="weather-card-wrapper">
+        <div class="weather-card flex">
+          <div class="loading-spinner">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          </div>
+          <div class="weather-search flex">
+            <input type="text" placeholder="Search your City" id="city-input" />
+            <button class="weather-search-button">
+              <i class="fa-solid fa-magnifying-glass search"></i>
+            </button>
+          </div>
+          <div class="weather-card-header flex">
+            <div class="city-time-details">
+              <div class="info-city">Itahari</div>
+              <div class="info-date">12/29/2024</div>
+            </div>
+            <div class="units-toggle">
+              <button class="active">°C</button>
+              <button>°F</button>
+            </div>
+          </div>
+          <div class="temperature-info-section">
+            <div class="info-temprature">
+              <span class="temp">36</span>
+              <span class="unit">°C</span>
+            </div>
+            <div class="temperature-feels-like">Feels Like <span>36°</span></div>
+          </div>
+          <!-- <div class="info-img">
           <img
             src=" https://openweathermap.org/img/wn/10d@2x.png"
             alt="Icon of Current Weather State"
           />
-        </div>
-        <div class="info-temprature"><span>36</span><span>&#176;C</span></div>
-        <div class="info-main-state">Cloudy</div>
-        <div class="info-state-description"></div>
-        <div class="info-city">Itahari</div>
-      </div>
-      <div class="weather-extra-info gap-10">
-        <div class="air-pressure flex gap-14">
-          <i class="fa-solid fa-gauge-simple-high"></i>
-          <div class="pressure-info-section">
-            <div class="pressure-info">1017 hPa</div>
-            <div class="pressure-label">Air Pressure</div>
+        </div> -->
+          <!-- <div class="info-main-state">Cloudy</div> -->
+          <div class="weather-condition flex">
+            <div class="weather-main-state flex">
+              <img class="info-img" src="https://openweathermap.org/img/wn/10d@2x.png" />
+              <span class="info-main-state">Cloudy</span>
+            </div>
+            <div class="separator"></div>
+            <div class="info-state-description">Partly Cloudy</div>
+          </div>
+          <div class="weather-info-section">
+            <div class="weather-info air-pressure-info flex">
+              <div class="weather-info-icon">
+                <i class="fa-solid fa-gauge-simple-high"></i>
+              </div>
+              <div class="weather-info-data">
+                <div class="weather-info-value air-pressure">1120 hPa</div>
+                <div class="weather-info-label">Air Pressure</div>
+              </div>
+              <!-- <div class="wind-direction"></div> -->
+            </div>
+            <div class="weather-info wind-speed-info flex">
+              <div class="weather-info-data flex">
+                <div class="weather-info-icon">
+                  <i class="fas fa-wind"></i>
+                </div>
+                <div class="weather-info-wind flex">
+                  <div class="weather-info-value wind-speed">12 m/s</div>
+                  <span class="weather-info-label">Wind</span>
+                </div>
+              </div>
+              <div class="wind-direction">NE</div>
+            </div>
+            <div class="weather-info humidity-info flex">
+              <div class="weather-info-icon">
+                <i class="fa-solid fa-droplet"></i>
+              </div>
+              <div class="weather-info-data">
+                <div class="weather-info-value humidity">80%</div>
+                <div class="weather-info-label">Humidity</div>
+              </div>
+            </div>
+            <div class="weather-info visibility-info flex">
+              <div class="weather-info-icon">
+                <i class="fas fa-wind"></i>
+              </div>
+              <div class="weather-info-data">
+                <div class="weather-info-value visibility">1km</div>
+                <div class="weather-info-label">Visibility</div>
+              </div>
+              <div class="visibility-label">Poor</div>
+            </div>
           </div>
         </div>
-        <div class="wind-speed flex gap-14">
-          <i class="fa-solid fa-arrow-right wind-direction-arrow"></i>
-          <div class="wind-info-section">
-            <div class="wind-info">3.0 m/s</div>
-            <div class="wind-direction">at 45°</div>
-            <div class="wind-label">Wind Speed</div>
+        <div class="toast">
+          <svg class="wave-icon" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
+              fill-opacity="1"
+            ></path>
+          </svg>
+          <div class="icon-container">
+            <i class="fa-solid fa-triangle-exclamation error-icon"></i>
           </div>
-        </div>
-        <div class="humidity flex gap-14">
-          <i class="fa-solid fa-droplet"></i>
-          <div class="humidity-info-section">
-            <div class="humidity-info">16km/hr</div>
-            <div class="humidity-label">Humidity</div>
+          <div class="message-text-container">
+            <p class="error-text">Error!</p>
+            <p class="error-description">Unexpected error Occured</p>
           </div>
+          <i class="fa-solid fa-x cross-icon"></i>
         </div>
-      </div>
-    </div>
-    <div class="toast">
-      <svg class="wave-icon" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
-          fill-opacity="1"
-        ></path>
-      </svg>
-      <div class="icon-container">
-        <i class="fa-solid fa-triangle-exclamation error-icon"></i>
-      </div>
-      <div class="message-text-container">
-        <p class="error-text">Error!</p>
-        <p class="error-description">Unexpected error Occured</p>
-      </div>
-      <i class="fa-solid fa-x cross-icon"></i>
-    </div>
+      </section>
+    </main>
     <footer class="flex">
       <i class="fa-solid fa-bolt bolt"></i>
       <p>Powered by</p>
