@@ -2,8 +2,8 @@
 
 ## Overview
 
+
 The **Weather App** is a web-based application that provides real-time weather information. It intelligently caches data for offline use. The weather was developed as a part of my college project. 
----
 
 ## Features
 
