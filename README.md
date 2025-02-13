@@ -1,11 +1,8 @@
-# Weather App
+# Weathora
 
 ## Overview
 
-The **Weather App** is a web-based application that provides real-time weather information. It intelligently caches data for offline use and minimizes unnecessary API requests by utilizing a **PHP backend** for data management.
-
-This project was built as part of my **JavaScript learning journey**, focusing on API integration, caching strategies, and backend communication.
-
+The **Weather App** is a web-based application that provides real-time weather information. It intelligently caches data for offline use. The weather was developed as a part of my college project. 
 ---
 
 ## Features
